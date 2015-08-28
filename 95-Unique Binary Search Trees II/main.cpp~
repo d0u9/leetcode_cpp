@@ -1,0 +1,51 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+
+struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+};
+
+
+class Solution {
+	vector<TreeNode *> F(int start, int end) {
+		vector<TreeNode *> ret;
+		if(start > end) {
+			TreeNode *node = new TreeNode(NULL);
+			return ret;
+		} else {
+			for (int i = start; i < end; ++i) {
+				auto left = F(start, i);
+				auto right = F(i + 1, end);
+				for (l : left)
+					for (r : right) {
+						TreeNode *node = new TreeNode(i);
+						node->left = l;
+						node->right = r;
+						ret.push_back(node);
+						
+					}
+			}
+		}
+	  
+		
+	}
+public:
+	vector<TreeNode*> generateTrees(int n) {
+		auto ret = F(0. n);
+		return ret;
+	}
+};
+
+int main(int argc, char *argv[])
+{
+	Solution *so = new Solution;
+	so->generateTrees(3);
+	return 0;
+}
+
