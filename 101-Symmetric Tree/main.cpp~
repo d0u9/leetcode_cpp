@@ -1,0 +1,47 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+
+struct TreeNode {
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+};
+
+class Solution {
+	bool F(TreeNode *root, bool dir, vector<int> &val){
+		if (!dir) {	// left
+			if (root == NULL) return true;
+			F(root->left, 0, val);
+			val.push_back(root->val);
+			F(root->right, 0, val);
+		}
+		if (dir) {	// right
+			if (root == NULL) return true;
+			if (!F(root->right, 1, val)) return false;
+			if (*val.rbegin() != root->val) return false;
+			val.pop_back();
+			if (!F(root->left, 1, val)) return false;
+
+			return true;
+		}
+	}
+public:
+	bool isSymmetric(TreeNode* root) {
+		if (!root) return true;
+		vector<int> val;
+		F(root->left, 0, val);
+		return F(root->right, 1, val);
+	}
+};
+
+
+
+int main(int argc, char *argv[])
+{
+	
+	return 0;
+}
