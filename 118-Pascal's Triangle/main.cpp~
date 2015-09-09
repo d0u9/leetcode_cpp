@@ -1,0 +1,13 @@
+#include <iostream>
+
+using namespace std;
+
+class Solution {
+public:
+	vector<vector<int>> generate(int numRows) {
+		vector<vector<int>> ret;
+		vector<int> row = {1};
+		if (!numRows) return ret;
+		
+	}
+};
