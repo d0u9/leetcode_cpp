@@ -1,0 +1,39 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+
+class Solution {
+	bool F(vector<vector<char>> &board, int x, int y) {
+		if (board[x][y] == 'X') return false;
+		if (board[x][y] == '+') return true;
+
+		board[x][y] = '+';
+		if (x == 0 || y == 0 || x == board.size() - 1 || y == board[0].size() - 1) return true;
+
+		auto up = F(board, x ,y - 1);
+		auto left = F(board, x - 1, y);
+		auto down = F(board, x, y + 1);
+		auto right = F(board, x + 1, y);
+
+		return true;
+	}
+public:
+	void solve(vector<vector<char>>& board) {
+		if (board.empty()) return;
+		auto num_rows = board.size();
+		auto num_cols = board[0].size();
+		for (int i = 0; i < num_rows; ++i) {
+			F(board, i, 0);
+			F(board, i, num_cols - 1);
+		}
+
+		for (int j = 0; j < num_rows; ++j) {
+			F(board, 0, j);
+			F(board, num_rows - 1, j);
+		}
+	}
+};
+
+
